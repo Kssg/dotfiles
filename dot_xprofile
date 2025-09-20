@@ -1,0 +1,22 @@
+# 新酷音輸入法
+# ibus
+# export GTK_IM_MODULE=ibus
+# export QT_IM_MODULE=ibus
+# export XMODIFIERS="@im=ibus"
+# ibus-daemon -drx
+
+# fcitx5
+# export GTK_IM_MODULE=fcitx
+# export QT_IM_MODULE=fcitx
+# export XMODIFIERS="@im=fcitx"
+
+#啟用輕觸點擊（tap-to-click）
+# xinput set-prop "ASUE120B:00 04F3:31C0 Touchpad" "libinput Tapping Enabled" 1
+# 啟用自然捲動方向（像 Windows/macOS）
+# xinput set-prop "ASUE120B:00 04F3:31C0 Touchpad" "libinput Natural Scrolling Enabled" 1
+# 啟用 tap + 拖曳
+# xinput set-prop "ASUE120B:00 04F3:31C0 Touchpad" "libinput Tapping Drag Enabled" 1
+# 提高指標速度（預設是 0.0，可試試 0.3 或更多）
+# xinput set-prop "ASUE120B:00 04F3:31C0 Touchpad" "libinput Accel Speed" 0.3
+
+# 後來使用設定：/etc/X11/xorg.conf.d/90-touchpad.conf 

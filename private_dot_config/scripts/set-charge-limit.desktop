@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=設定充電上限
+Comment=設定筆電電池的充電上限（60%、80%、100%）
+Exec=/usr/local/bin/set-charge-limit-rofi.sh
+Icon=battery
+Terminal=false
+Type=Application
+Categories=System;
+

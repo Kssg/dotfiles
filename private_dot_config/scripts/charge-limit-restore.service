@@ -1,0 +1,12 @@
+[Unit]
+Description=Restore battery charge limit at boot
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/set-charge-limit.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target
+
