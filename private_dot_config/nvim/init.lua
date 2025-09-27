@@ -5,6 +5,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- 全域快捷鍵
+-- 和插件無關的快捷鍵寫外面就好
 -- 用來把錯誤訊息顯示在彈出的氣泡窗內
 vim.keymap.set("n", "<leader>e", function()
   vim.diagnostic.open_float(0, { scope = "line", border = "rounded", severity_sort = true })
@@ -26,7 +27,7 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic
 -- │ lazy.nvim 插件管理器初始化               │
 -- ╰────────────────────────────────────────────╯
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -41,65 +42,60 @@ vim.opt.rtp:prepend(lazypath)
 -- │ 插件載入                                   │
 -- ╰────────────────────────────────────────────╯
 require("lazy").setup({
-    -- 主題與外觀
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  -- LSP 支援
-  { "williamboman/mason.nvim", version = "v1.10.0" },
-  { "williamboman/mason-lspconfig.nvim", version = "v1.29.0" },
-  { "neovim/nvim-lspconfig", version = "v0.1.7" },
-  -- 自動補全
-  "hrsh7th/nvim-cmp",
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "L3MON4D3/LuaSnip",
+  spec = {
+      -- 主題
+      { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
-  -- 自動補全括號
-  -- ✅ 插件會在進入 Insert 模式時才被載入
-  { "windwp/nvim-autopairs", event = "InsertEnter",
-    config = function()
-      require("nvim-autopairs").setup({})
-    end,
-  },
-  -- Treesitter 語法高亮
-  { "nvim-treesitter/nvim-treesitter",
-    version = "v0.9.2",
-    build = ":TSUpdate" 
-  },
+      -- LSP 支援
+      { "williamboman/mason.nvim", version = "*" },
+      { "williamboman/mason-lspconfig.nvim", version = "*" },
+      { "neovim/nvim-lspconfig", version = "*" },
+      
+      -- 自動補全
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "L3MON4D3/LuaSnip",
 
-  -- 檔案搜尋
-  "nvim-lua/plenary.nvim", -- 放第一，保證先載入
-  "nvim-telescope/telescope.nvim",
- 
--- ╭────────────────────────────────────────────╮
--- │ NvimTree 檔案總管                          │
--- ╰────────────────────────────────────────────╯
-  {"nvim-tree/nvim-tree.lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-        require("nvim-tree").setup({
-            view = {
-                width = 30,
-                side = "left",
-            },
-            filters = {
-                git_ignored = false;
-            },
+      -- 自動補全括號，插件會在進入 Insert 模式時才被載入
+      { "windwp/nvim-autopairs", event = "InsertEnter",
+        config = function()
+          require("nvim-autopairs").setup({})
+        end,
+      },
+
+      -- Treesitter 語法高亮
+      { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+      -- 檔案搜尋
+      "nvim-lua/plenary.nvim", -- 放第一，保證先載入
+      "nvim-telescope/telescope.nvim",
+     
+      -- NvimTree 檔案總管
+      {"nvim-tree/nvim-tree.lua",
+        version = "*",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+        config = function()
+          require("nvim-tree").setup({
+            view = { width = 30, side = "left" },
+            filters = { git_ignored = false },
             actions = {
-                open_file = {
-                    quit_on_open = false,
-                    resize_window = true,
-                },
+              open_file = { quit_on_open = false, resize_window = true },
             },
-        })
-        vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-    end,
-  },
+          })
+          vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+        end,
+      },
 
-  -- 額外工具
-  "tpope/vim-commentary",
-  "tpope/vim-surround",
-  "tpope/vim-fugitive",
+      -- 額外工具
+      "tpope/vim-commentary",
+      "tpope/vim-surround",
+      "tpope/vim-fugitive",
+    },
+    rocks = {
+        enabled = false,
+    },
 })
 
 -- ╭────────────────────────────────────────────╮
