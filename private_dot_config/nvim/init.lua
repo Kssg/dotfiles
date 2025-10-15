@@ -8,7 +8,11 @@ vim.g.maplocalleader = " "
 -- 和插件無關的快捷鍵寫外面就好
 -- 用來把錯誤訊息顯示在彈出的氣泡窗內
 vim.keymap.set("n", "<leader>e", function()
-  vim.diagnostic.open_float(0, { scope = "line", border = "rounded", severity_sort = true })
+  vim.diagnostic.open_float(0, {
+    scope = "line",
+    border = "rounded",
+    severity_sort = true,
+  })
 end, { desc = "Show diagnostics for current line", silent = true })
 
 -- 關閉搜尋高亮
@@ -120,6 +124,21 @@ local lspconfig = require("lspconfig")
 lspconfig.clangd.setup({})
 
 -- ╭────────────────────────────────────────────╮
+-- │ Diagnostic 設定（行號旁顯示錯誤訊息）        │
+-- ╰────────────────────────────────────────────╯
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = "●",          -- 可以改成 ►、●、■ 等符號
+    spacing = 2,           -- 訊息和行號之間的空格
+    severity = { min = vim.diagnostic.severity.INFO }, -- 顯示所有嚴重程度
+  },
+  signs = true,             -- 顯示行號旁的 E/W
+  underline = true,         -- 有底線標示
+  update_in_insert = false, -- 插入模式不更新，避免打字時跳動
+  severity_sort = true,     -- 錯誤訊息依嚴重度排序
+})
+
+-- ╭────────────────────────────────────────────╮
 -- │ nvim-cmp 自動補全                          │
 -- ╰────────────────────────────────────────────╯
 local cmp = require("cmp")
@@ -139,7 +158,7 @@ cmp.setup({
 -- │ Treesitter 高亮                           │
 -- ╰────────────────────────────────────────────╯
 require("nvim-treesitter.configs").setup({
-  ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc" },
+  ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "markdown", "markdown_inline" },
   highlight = { enable = true },
 })
 
