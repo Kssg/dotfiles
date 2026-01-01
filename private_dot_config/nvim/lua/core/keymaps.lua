@@ -23,3 +23,15 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Diagnostic
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<CR>", { noremap = true })
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>", { noremap = true })
 
+
+-- 搜索所有檔案（包含 hidden & no_ignore）
+vim.keymap.set('n', '<leader>fF', function()
+  require('telescope.builtin').find_files({ hidden = true, no_ignore = true })
+end, { desc = 'Find all files (include ignored & hidden)' })
+
+-- 全庫內容搜尋（包含 hidden & no_ignore）
+vim.keymap.set('n', '<leader>fG', function()
+  require('telescope.builtin').live_grep({
+    additional_args = function() return { '--hidden', '--no-ignore' } end
+  })
+end, { desc = 'Search all (include ignored & hidden)' })
