@@ -35,3 +35,17 @@ vim.keymap.set('n', '<leader>fG', function()
     additional_args = function() return { '--hidden', '--no-ignore' } end
   })
 end, { desc = 'Search all (include ignored & hidden)' })
+
+-- 直跳（快）
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { silent = true })
+vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { silent = true })
+vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, { silent = true })
+vim.keymap.set('n', 'gr', vim.lsp.buf.references, { silent = true })
+vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, { silent = true })
+
+-- 列表挑選（穩、好篩）
+vim.keymap.set('n', '<leader>ld', '<cmd>Telescope lsp_definitions<cr>', { silent = true })
+vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references<cr>', { silent = true })
+vim.keymap.set('n', '<leader>li', '<cmd>Telescope lsp_implementations<cr>', { silent = true })
+vim.keymap.set('n', '<leader>lt', '<cmd>Telescope lsp_type_definitions<cr>', { silent = true })
+
