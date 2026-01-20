@@ -9,6 +9,9 @@ vim.keymap.set("n", "<leader>e", function()
   })
 end, { desc = "Show diagnostics for current line", silent = true })
 
+-- code actions
+vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, { desc = 'LSP: Code Action' })
+
 -- 清除搜尋高亮
 vim.keymap.set("n", "<leader>h", ":nohlsearch<CR>", { desc = "Clear search highlight", silent = true })
 
