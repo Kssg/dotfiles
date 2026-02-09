@@ -52,3 +52,17 @@ vim.keymap.set('n', '<leader>lr', '<cmd>Telescope lsp_references<cr>', { silent 
 vim.keymap.set('n', '<leader>li', '<cmd>Telescope lsp_implementations<cr>', { silent = true })
 vim.keymap.set('n', '<leader>lt', '<cmd>Telescope lsp_type_definitions<cr>', { silent = true })
 
+-- <leader>y  複製到系統剪貼簿（動作/視覺/整行都行）
+vim.keymap.set({'n','x'}, '<leader>y', '"+y')
+vim.keymap.set('n', '<leader>Y', '"+Y')      -- Y 複製整行到系統剪貼簿
+
+-- 貼上到系統剪貼簿
+vim.keymap.set({'n','x'}, '<leader>p', '"+p')
+vim.keymap.set({'n','x'}, '<leader>P', '"+P')
+
+-- 複製整行
+vim.keymap.set('n', '<leader>yy', '"+yy')
+
+-- 複製整檔
+vim.keymap.set('n', '<leader>ya', 'gg"+yG')
+
