@@ -18,6 +18,7 @@ require("lazy").setup({
     { import = "plugins.nvimtree" },
     { import = "plugins.cmp" },
     { import = "plugins.misc" }, -- ← 這裡包含 autopairs / fugitive / commentary / surround
+    { improt = "plugins.markdown" },
   },
   checker = { enabled = false },
 })
